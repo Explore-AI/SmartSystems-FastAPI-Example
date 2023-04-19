@@ -2,12 +2,13 @@
 
 The purpose of this Repo is to explore the capabilities of the FastAPI framework for building backend services and APIs. By creating a sample repository, we aim to showcase how FastAPI can be used to develop high-performance, scalable, and easy-to-maintain web services. Additionally, this project will help us evaluate the benefits and limitations of the FastAPI framework, including its performance, ease of use, documentation, community support, and compatibility with other tools and technologies. This project utilizes the following tech stack:
 
-- 🐍 [FastAPI](https://fastapi.tiangolo.com/)
-- 🐳 [Dockerized](https://www.docker.com/)
-- [Microsoft SQL Server](https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver16&pivots=cs1-bash)
-- Pydantic for data validation and serialization
-- SQLAlchemy as the ORM
-- uvicorn as the ASGI server
+
+- 🐍 [FastAPI](https://fastapi.tiangolo.com/) - a modern, fast (high-performance), web framework for building APIs with Python.
+- 🐳 [Docker](https://www.docker.com/) - a containerization platform used to package and run the application in a portable environment.
+- 📊 [Microsoft SQL Server](https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver16&pivots=cs1-bash) - a relational database management system that provides a robust and scalable data storage solution.
+- 🦜 [Pydantic](https://pydantic-docs.helpmanual.io/) - a data validation and serialization library that provides runtime checking and validation of data types and structures.
+- 🗃️ [SQLAlchemy](https://www.sqlalchemy.org/) - an Object Relational Mapper (ORM) that provides a high-level abstraction for working with databases in Python.
+- 🚀 [uvicorn](https://www.uvicorn.org/) - a fast, ASGI (Asynchronous Server Gateway Interface) server that provides a lightning-fast web server interface for the FastAPI framework.
 
 ## Benefits of FastAPI
 
