@@ -1,31 +1,48 @@
 version: '3.8'
 
-services:
-  db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    environment:
-      SA_PASSWORD: "Changeme@12"
-      ACCEPT_EULA: "Y"
-    ports:
-      - "1433:1433"
-    expose:
-      - "1433"
-    volumes:
-      - dbdata:/var/opt/mssql/data
+networks:
+  smartsystems_vn:
+    driver: bridge
 
+services:
   api:
     container_name: smartsystems-identity-server-api
     restart: always
     build:
       dockerfile: Dockerfile
       context: ./src/
-    command: uvicorn main:api --host 0.0.0.0 --port 8001
+      platforms:
+        - linux/arm64
     ports:
-      - "8001:8001"
-    expose:
-      - "8001"
+      - "8001:80"
     depends_on:
-      - db
+      - mssql
+    networks:
+      - smartsystems_vn
+    command: uvicorn main:api --host 0.0.0.0 --port 80 --reload
 
-volumes:
-  dbdata:
+  mssql:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=1
+      - MSSQL_SA_PASSWORD=Passw@rd
+    volumes:
+      - ./SQLDB:/var/opt/mssql/DDL
+    networks:
+      - smartsystems_vn
+    command:
+      - /bin/bash
+      - -c 
+      - |
+        # Launch MSSQL and send to background
+        /opt/mssql/bin/sqlservr &
+        # Wait 30 seconds for it to be available
+        sleep 20
+        /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Passw@rd -i /var/opt/mssql/DDL/SQL_DB_init.sql &&
+        /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Passw@rd -i /var/opt/mssql/DDL/IdentityTables_init.sql &&
+        /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Passw@rd -i /var/opt/mssql/DDL/TestData_init.sql
+        # So that the container doesn't shut down, sleep this thread
+        sleep infinity
+

@@ -1,5 +1,6 @@
 import fastapi
 from fastapi.middleware.cors import CORSMiddleware
+import api.endpoints
 
 
 def initialize_backend_application() -> fastapi.FastAPI:
@@ -20,7 +21,7 @@ def initialize_backend_application() -> fastapi.FastAPI:
         return {"message": 'Server is running...'}
 
     #  add enpoints
-    #  app.include_router(endpoints.router)
+    app.include_router(endpoints.router)
 
     return app
 
