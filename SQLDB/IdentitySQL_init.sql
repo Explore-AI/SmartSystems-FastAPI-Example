@@ -1,5 +1,5 @@
 --####################################################################################################
---This script is intended for local development only.
+-- This script is intended for local development only.
 -- Creates a new database 'Identity_DB'
 -- V1, 2023-04-19, Qiniso Mazibuko, Initial Version
 --####################################################################################################

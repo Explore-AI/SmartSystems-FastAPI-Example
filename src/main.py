@@ -16,9 +16,9 @@ def initialize_backend_application() -> fastapi.FastAPI:
     )
 
     #  add default route
-    @app.get('/')
+    @app.get("/")
     def home():
-        return {"message": 'Server is running...'}
+        return {"message": "Server is running..."}
 
     #  add enpoints
     app.include_router(endpoints.router)

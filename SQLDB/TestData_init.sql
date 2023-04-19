@@ -1,5 +1,5 @@
 --####################################################################################################
---This script is intended for local development only.
+-- This script is intended for local development only.
 -- inserts test data into 'Identity_DB' tables
 -- V1, 2023-04-19, Qiniso Mazibuko, Initial Version
 --####################################################################################################
