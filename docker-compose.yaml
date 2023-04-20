@@ -27,7 +27,7 @@ services:
       - 1433:1433
     environment:
       - ACCEPT_EULA=1
-      - MSSQL_SA_PASSWORD=Passw@rd
+      - SA_PASSWORD=Passw@rd
     volumes:
       - ./SQLDB:/var/opt/mssql/DDL
     networks:
@@ -39,10 +39,10 @@ services:
         # Launch MSSQL and send to background
         /opt/mssql/bin/sqlservr &
         # Wait 30 seconds for it to be available
-        sleep 20
-        /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Passw@rd -i /var/opt/mssql/DDL/SQL_DB_init.sql &&
-        /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Passw@rd -i /var/opt/mssql/DDL/IdentityTables_init.sql &&
-        /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Passw@rd -i /var/opt/mssql/DDL/TestData_init.sql
+        sleep 180
+        /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Passw@rd -i /var/opt/mssql/DDL/IdentitySQL_init.sql &&
+        /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Passw@rd -i /var/opt/mssql/DDL/IdentityTables_init.sql &&
+        /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Passw@rd -i /var/opt/mssql/DDL/TestData_init.sql
         # So that the container doesn't shut down, sleep this thread
         sleep infinity
 
