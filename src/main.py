@@ -1,6 +1,6 @@
 import fastapi
 from fastapi.middleware.cors import CORSMiddleware
-import api.endpoints
+import api.endpoints as endpoints
 
 
 def initialize_backend_application() -> fastapi.FastAPI:
