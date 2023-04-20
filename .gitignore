@@ -182,3 +182,7 @@ poetry.toml
 
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+# Still under development 
+gm-fastapi-streamlit/src/fastapi/services/
+gm-fastapi-streamlit/src/streamlit/
+gm-fastapi-streamlit/src/fastapi/core/

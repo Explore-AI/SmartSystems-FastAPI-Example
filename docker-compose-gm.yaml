@@ -1,0 +1,68 @@
+version: '3.8'
+
+networks:
+  smartsystems_vn:
+    driver: bridge
+
+services:
+  # streamlit:
+  #   build: ./streamlit-app/
+  #   ports:
+  #     - 80:8000
+  #   links:
+  #     - fastapi
+
+  fastapi:
+    container_name: smartsystems-identity-server-api
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./gm-fastapi-streamlit/src/fastapi/
+      platforms:
+        - linux/arm64
+    volumes:
+      - ./gm-fastapi-streamlit/src/fastapi/:/app/
+    ports:
+      - "8001:80"
+    depends_on:
+      - mssql
+    networks:
+      - smartsystems_vn
+    command: uvicorn main:api --host 0.0.0.0 --port 80 --reload
+
+  mssql:
+    user: "root"
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=1
+      - MSSQL_SA_PASSWORD=Change@Me123
+    volumes:
+      - ./gm-fastapi-streamlit/SQLDB:/var/opt/mssql/DDL
+    networks:
+      - smartsystems_vn
+    command:
+      - /bin/bash
+      - -c 
+      - |
+        # Launch MSSQL and send to background
+        /opt/mssql/bin/sqlservr &
+        # Wait 30 seconds for it to be available
+        sleep 20
+        /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Change@Me123 -i /var/opt/mssql/DDL/CreateUsersDatabase.sql
+        # So that the container doesn't shut down, sleep this thread
+        sleep infinity
+# goes into command under the mssql service
+# /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Change@Me123 -i /var/opt/mssql/DDL/IdentityTables_init.sql &&
+# /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Change@Me123 -i /var/opt/mssql/DDL/TestData_init.sql
+
+
+# install mssql tools 
+# curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+# sleep 5 
+# curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | tee /etc/apt/sources.list.d/msprod.list
+# sleep 5
+# apt-get update
+# apt-get install mssql-tools
+# sleep 10
