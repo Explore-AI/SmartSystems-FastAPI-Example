@@ -14,7 +14,6 @@ def initialize_backend_application() -> fastapi.FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-
     #  add default route
     @app.get("/")
     def home():
