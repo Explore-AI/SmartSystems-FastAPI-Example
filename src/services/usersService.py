@@ -1,10 +1,14 @@
 from sqlalchemy.orm import Session
 from repositories.models.identityUser import IdentityUser
-from repositories import userRepository
+from repositories.userRepository import UserRepository
+from domain.schemas.identityUser import IdentityUser as IdentityUserDTO
 
 class UserService:
     def __init__(self, db: Session):
-        self.user_repository =  userRepository(db)
+        self.user_repository =  UserRepository(db)
+
+    def get_all_users(self):
+        return self.user_repository.get_all_users().all()
 
     def create_user(self, user: IdentityUser):
         return self.user_repository.create_user(user)
