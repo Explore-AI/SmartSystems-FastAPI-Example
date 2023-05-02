@@ -1,12 +1,9 @@
 from passlib.context import CryptContext
 from datetime import timedelta
-
 from datetime import datetime, timedelta
 from typing import Any, Dict, Optional
-
 import jwt
 from fastapi import HTTPException
-
 from domain.schemas.identityUser import IdentityUser as User
 from domain.security.password import pwd_generator
 from repositories.models.identityUser import IdentityUser
@@ -43,6 +40,7 @@ class JWTGenerator:
         Generates user data to include in the JWT token.
         """
         return {
+            "userId": user.Id,
             "sub": user.email,
             "name": user.username,
             "password_hash": user.PasswordHash,
@@ -55,12 +53,16 @@ class JWTGenerator:
         """
         try:
             payload = jwt.decode(token, self._jwt_secret_key, algorithms=[self._jwt_algorithm])
+            userId = payload.get('userId')
             email = payload.get("sub")
             username = payload.get("name")
             exp = payload.get("exp")
+            password_hash = payload.get("password_hash"),
+            password_salt = payload.get("password_salt"),
             if email is None or username is None:
                 raise HTTPException(status_code=401, detail="Could not validate credentials")
             user_dict = {
+                "Id": userId,
                 "email": email,
                 "username": username,
                 "PasswordHash": password_hash,

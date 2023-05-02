@@ -6,3 +6,6 @@ passlib
 bcrypt
 PyJWT
 argon2_cffi
+python-multipart
+python-dotenv
+fastapi-azure-auth

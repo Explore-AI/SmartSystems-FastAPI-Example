@@ -26,9 +26,20 @@ class SignUpUser(BaseModel):
     class Config:
         orm_mode = True
 
-class ResponseUser(BaseModel):
-    username: str
-    email: str
+class IdentityUserDTO:
+    UserId: int
+    UserName: str
+    Email: str
 
-    class Config:
-        orm_mode = True
+    def __init__(self, UserId, UserName, Email):
+        self.UserId = UserId
+        self.UserName = UserName
+        self.Email = Email
+
+    def __repr__(self):
+        return 'B({0.UserId!r},{0.UserName!r}, {0.Email!r})'.format(self)
+
+    @classmethod
+    def from_db(cls, inst):
+        return cls(UserId = inst.Id, UserName = inst.username, Email = inst.email)
+
