@@ -9,6 +9,20 @@ The purpose of this Repo is to explore the capabilities of the FastAPI framework
 - 🗃️ [SQLAlchemy](https://www.sqlalchemy.org/) - an Object Relational Mapper (ORM) that provides a high-level abstraction for working with databases in Python.
 - 🚀 [uvicorn](https://www.uvicorn.org/) - a fast, ASGI (Asynchronous Server Gateway Interface) server that provides a lightning-fast web server interface for the FastAPI framework.
 
+## Running the project
+
+This project runs using docker desktop and will automatically install the neccesary packages in the requirements.txt file.
+The project requires a database connection on startup and for that we use a docker-compose file to
+spin up an instance of MSSQL server allongside our API container.
+
+```shell
+ cd /SmartSystems-FastAPI-Example # Navigate the ROOT project directory
+ $ export ENVIRONMENT=dev  # Set the ENVIRONMENT variable to "dev"
+ $ docker-compose build  # Build the Docker images for the services defined in docker-compose.yml
+ $ docker-compose up -d  # Start the containers in the background
+```
+
+
 ## Benefits of FastAPI
 
 - **Fast Performance**: FastAPI is one of the fastest Python web frameworks out there. It can handle high-traffic applications with ease due to its high-speed ASGI server.
