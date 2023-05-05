@@ -10,11 +10,11 @@ services:
     restart: always
     build:
       dockerfile: Dockerfile
-      context: ./src/
+      context: ./FastAPI-Server/
       platforms:
         - linux/arm64
     ports:
-      - "8001:80"
+      - "8000:80"
     depends_on:
       - mssql
     networks:
@@ -22,6 +22,24 @@ services:
     environment:
       - ENVIRONMENT=${ENVIRONMENT:-dev} 
     command: uvicorn main:api --host 0.0.0.0 --port 80 --reload
+
+  client:
+    container_name: smartsystems-identity-server-client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./React-Client/
+      platforms:
+        - linux/arm64
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mssql
+      - api
+    networks:
+      - smartsystems_vn
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-dev} 
 
   mssql:
     image: mcr.microsoft.com/azure-sql-edge:latest

@@ -26,11 +26,11 @@ class AppStartUpExtensions(fastapi.FastAPI):
 
     def CreateSingleTenantAzureAuthScheme(self, clientId:str, tenantId:str, scopes: Optional[dict[str,str]] = None):
         return SingleTenantAzureAuthorizationCodeBearer(
-                        app_client_id = clientId,
-                        tenant_id = tenantId,
-                        scopes = scopes,
-                        allow_guest_users=True
-                    )
+                    app_client_id = clientId,
+                    tenant_id = tenantId,
+                    scopes = scopes,
+                    allow_guest_users=True
+                )
 
     def AddDefaultEndpoint(self, message:str): 
         @self.get("/")
