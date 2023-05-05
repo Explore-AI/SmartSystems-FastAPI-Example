@@ -1,4 +1,4 @@
-<h1 align=center><strong>FastAPI API & React Client Example</strong></h1>
+<h1 align=center><strong>FastAPI API & React Client POC</strong></h1>
 
 The purpose of this Repo is to explore the capabilities of the FastAPI framework for building backend services and APIs. By creating a sample repository, we aim to showcase how FastAPI can be used to develop high-performance, scalable, and easy-to-maintain web services. Additionally, this project will help us evaluate the benefits and limitations of the FastAPI framework, including its performance, ease of use, documentation, community support, and compatibility with other tools and technologies. This project utilizes the following tech stack:
 
