@@ -1,7 +1,6 @@
-<h1 align=center><strong>FastAPI Backend Example API</strong></h1>
+<h1 align=center><strong>FastAPI Server & React Client POC</strong></h1>
 
 The purpose of this Repo is to explore the capabilities of the FastAPI framework for building backend services and APIs. By creating a sample repository, we aim to showcase how FastAPI can be used to develop high-performance, scalable, and easy-to-maintain web services. Additionally, this project will help us evaluate the benefits and limitations of the FastAPI framework, including its performance, ease of use, documentation, community support, and compatibility with other tools and technologies. This project utilizes the following tech stack:
-
 
 - 🐍 [FastAPI](https://fastapi.tiangolo.com/) - a modern, fast (high-performance), web framework for building APIs with Python.
 - 🐳 [Docker](https://www.docker.com/) - a containerization platform used to package and run the application in a portable environment.
@@ -9,6 +8,20 @@ The purpose of this Repo is to explore the capabilities of the FastAPI framework
 - 🦜 [Pydantic](https://pydantic-docs.helpmanual.io/) - a data validation and serialization library that provides runtime checking and validation of data types and structures.
 - 🗃️ [SQLAlchemy](https://www.sqlalchemy.org/) - an Object Relational Mapper (ORM) that provides a high-level abstraction for working with databases in Python.
 - 🚀 [uvicorn](https://www.uvicorn.org/) - a fast, ASGI (Asynchronous Server Gateway Interface) server that provides a lightning-fast web server interface for the FastAPI framework.
+
+## Running the project
+
+This project runs using docker desktop and will automatically install the neccesary packages in the requirements.txt file.
+The project requires a database connection on startup and for that we use a docker-compose file to
+spin up an instance of MSSQL server allongside our API container.
+
+```shell
+ cd /SmartSystems-FastAPI-Example # Navigate the ROOT project directory
+ $ export ENVIRONMENT=dev  # Set the ENVIRONMENT variable to "dev"
+ $ docker-compose build  # Build the Docker images for the services defined in docker-compose.yml
+ $ docker-compose up -d  # Start the containers in the background
+```
+
 
 ## Benefits of FastAPI
 

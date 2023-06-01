@@ -6,7 +6,7 @@
 
 USE Identity_DB;
 
-CREATE TABLE IdentityUser (
+CREATE TABLE IdentityUsers (
     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     UserName NVARCHAR(50) NOT NULL UNIQUE,
     Email NVARCHAR(320) NOT NULL UNIQUE,
@@ -14,7 +14,7 @@ CREATE TABLE IdentityUser (
     PasswordSalt NVARCHAR(256) NOT NULL
 );
 
-CREATE TABLE IdentityRole (
+CREATE TABLE IdentityRoles (
     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Name NVARCHAR(50) NOT NULL UNIQUE
 );
@@ -23,6 +23,6 @@ CREATE TABLE UserRoles (
     UserId INT NOT NULL,
     RoleId INT NOT NULL,
     PRIMARY KEY (UserId, RoleId),
-    FOREIGN KEY (UserId) REFERENCES Users (Id),
-    FOREIGN KEY (RoleId) REFERENCES Roles (Id)
+    FOREIGN KEY (UserId) REFERENCES IdentityUsers (Id),
+    FOREIGN KEY (RoleId) REFERENCES IdentityRoles (Id)
 );
