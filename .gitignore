@@ -185,4 +185,9 @@ poetry.toml
 # Still under development 
 gm-fastapi-streamlit/src/fastapi/services/
 gm-fastapi-streamlit/src/streamlit/
+gm-fastapi-streamlit/src/.DS_Store
+gm-fastapi-streamlit/.DS_Store
 gm-fastapi-streamlit/src/fastapi/core/
+*.DS_Store
+/*.DS_Store
+../*.DS_Store
