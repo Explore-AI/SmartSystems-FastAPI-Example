@@ -26,6 +26,5 @@ class HSI:
     
     @classmethod
     def from_db(cls, inst):
-        # return cls(Id = inst.Id, Value = inst.Value, enqueuedTime = inst.enqueuedTime)
         return cls(hsi_db = inst)
 # Create different models for the different tables present in SQL warehouse
