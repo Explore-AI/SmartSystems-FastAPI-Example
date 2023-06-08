@@ -4,7 +4,7 @@ Our user models are found here
 We inherit from the Base class 
 """
 from sqlalchemy import Column, String, Integer 
-from db.session import Base 
+from repositories.session import Base 
 
 class User(Base): 
     """_summary_

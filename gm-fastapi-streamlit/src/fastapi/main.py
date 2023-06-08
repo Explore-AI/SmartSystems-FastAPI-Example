@@ -4,9 +4,9 @@
 import fastapi 
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from db.session import SessionLocal
+# from repositories.session import SessionLocal
 from api.endpoints import api_router
-from api.dependencies import get_db
+# from api.dependencies import get_db
 
 def initialize_backend_application() -> fastapi.FastAPI:
     app = fastapi.FastAPI()
@@ -18,17 +18,14 @@ def initialize_backend_application() -> fastapi.FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-    # add dependencies 
-    def get_db():
-        db = SessionLocal()
-        try:
-            yield db
-        finally:
-            db.close()
-    # add routes 
+    # add routes
     app.include_router(api_router)
     
     return app
 
 api: fastapi.FastAPI = initialize_backend_application()
- 
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:api", host="0.0.0.0", port=8001, reload=True, log_level="info")

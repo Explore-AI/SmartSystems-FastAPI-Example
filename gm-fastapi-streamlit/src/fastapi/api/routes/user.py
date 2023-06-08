@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from api.dependencies import get_db #DB dependency 
 from sqlalchemy.orm import Session 
 # import schema.user as User  # Pydantic model
-from db.crud import user # CRUD services
+from repositories.crud import user # CRUD services
 from schema.user import UserBase, UserCreate, UserInDB, UserUpdate, UserInDBOut
 
 router = APIRouter()

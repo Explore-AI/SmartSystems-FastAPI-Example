@@ -49,7 +49,8 @@ def update_user_by_id(db:Session, user_id:int, user_obj: Annotated[UserUpdate, D
     db.commit()
     db.refresh(user)
     
-    return user     
+    return user    
+ 
 #DELETE USER DATA
 def delete_user_by_id(db:Session, user_id: int) -> User: 
     user = db.query(User).filter(User.user_id == user_id).first()

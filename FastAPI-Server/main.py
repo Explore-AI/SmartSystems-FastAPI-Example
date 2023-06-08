@@ -23,7 +23,7 @@ def initialize_backend_application() -> fastapi.FastAPI:
         { f'api://{settings.APP_CLIENT_ID}/user_impersonation': 'user_impersonation',}
     )
 
-    #  add enpoints 
+    #  add endpoints 
     AppStartUpExtensions.AddApiRouters(
         app,
         [endpoints.authRouter,endpoints.apiRouter],
