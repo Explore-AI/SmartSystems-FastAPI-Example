@@ -195,3 +195,4 @@ gm-fastapi-streamlit/src/fastapi/core/
 ../*.DS_Store
 # gm-fastapi-streamlit/
 FastAPI-Server/config/.env.development
+/

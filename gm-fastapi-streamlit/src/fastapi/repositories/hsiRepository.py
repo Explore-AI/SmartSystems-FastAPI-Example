@@ -37,3 +37,8 @@ class HSIRepository():
     def get_all(self, skip: int=0, limit: int=100):
         # return all data
         return self.db.query(DefaultHSI).offset(skip).limit(limit).all()
+    
+    def get_most_recent(self):
+        # return the most recent data
+        return self.db.query(DefaultHSI).order_by(DefaultHSI.enqueuedTime.desc()).first()
+    
