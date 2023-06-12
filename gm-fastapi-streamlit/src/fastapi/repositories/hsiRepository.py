@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from repositories.models.hsi import DefaultHSI, BronzeCuratedHSI
 from repositories.session import SessionLocal, get_db
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 
 class HSIRepository(): 
@@ -41,4 +41,8 @@ class HSIRepository():
     def get_most_recent(self):
         # return the most recent data
         return self.db.query(DefaultHSI).order_by(DefaultHSI.enqueuedTime.desc()).first()
+    
+    def get_from_start_date(self, start_date: date):
+        # return the data from the start date
+        return self.db.query(DefaultHSI).filter(DefaultHSI.enqueuedTime >= start_date).all()
     

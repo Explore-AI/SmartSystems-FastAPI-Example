@@ -2,8 +2,8 @@ import asyncio
 import json
 import uuid
 # from api.dependencies import get_hsi_repository
-from datetime import datetime
-from typing import Generator
+from datetime import datetime, date
+from typing import Generator, Optional
 
 from core.utils.event_generator import (status_stream_delay,
                                         status_stream_retry_timeout)
@@ -95,8 +95,6 @@ async def get_most_recent(hsi_repository: HSIRepository = Depends(get_hsi_reposi
 """
 Create function to generate events
 """
-
-
 @router.get("/stream-events-test/")
 async def event_handler(request: Request):
     # generate an event for the client
@@ -124,7 +122,7 @@ async def stream_most_recent(request: Request, hsiRepository: HSIRepository = De
                 print("Disconnected")
                 break
             data_param = await get_most_recent(hsiRepository)
-            event = "" + str(uuid.uuid4())
+            # event = "" + str(uuid.uuid4())
             if data_param:
                 response = {
                     "event": "stream_event",
@@ -133,7 +131,6 @@ async def stream_most_recent(request: Request, hsiRepository: HSIRepository = De
                     "data": {"Id": data_param.Id, "Value": float(data_param.Value), "time": str(data_param.enqueuedTime)}
                 }
                 yield json.dumps(response)
-                # yield data_param
 
             await asyncio.sleep(status_stream_delay)
     try:
@@ -145,3 +142,28 @@ async def stream_most_recent(request: Request, hsiRepository: HSIRepository = De
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error: {e}")
+
+@router.get("/get-from-date/")
+async def get_from_start_date(start_date: date, hsiRepository: HSIRepository = Depends(get_hsi_repository)):
+    """
+    Summary: 
+        Returns the latest data from a specified start date.
+    
+    Args:
+        start_date (datetime): 
+            _description_
+        hsiRepository (HSIRepository, optional): 
+            _description_. Defaults to Depends(get_hsi_repository).
+
+    Raises:
+        HTTPException: _description_
+
+    Returns:
+        _type_: list of HSI
+    """
+    hsi_data = hsiRepository.get_from_start_date(start_date)
+    if hsi_data is None:
+        raise HTTPException(
+            status_code=404, detail=f"No data from this date onwards")
+    return [HSI.from_db(hsi) for hsi in hsi_data]
+

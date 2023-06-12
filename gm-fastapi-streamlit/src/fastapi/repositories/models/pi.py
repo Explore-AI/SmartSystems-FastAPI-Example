@@ -15,12 +15,6 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.inspection import inspect
 from sqlalchemy import Column, Integer, Boolean, String, DateTime, Float, Numeric
 
-# metadata = MetaData(bind=engine)
-# pi_bronze_table = Table(
-#     "bronze_curated_pi_15min_v2", 
-#     metadata, 
-#     autoload=True,
-#     schema="smartvisualiser_dev.subscribed")
 
 class DefaultPi(Base): 
     __tablename__ = "osi_pi_15min_v2"
